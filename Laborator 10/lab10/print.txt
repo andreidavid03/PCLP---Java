@@ -1,0 +1,3 @@
+Date pentru testarea fluxului PrintStream
+234.5 120
+3.141592653589793

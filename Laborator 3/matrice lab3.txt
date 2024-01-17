@@ -1,0 +1,105 @@
+
+package seminar3;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ *
+ * @author Oana
+ */
+
+
+public class S03_2_Matrice {
+    
+    public static void main(String [] args) throws IOException{
+        
+        int a[][]=citesteMatrice();
+        //apelul metodei de citire a matricei
+        
+        //Afisare matrice
+        System.out.println("Matricea introdusa este: ");
+        printMatrice(a);
+        
+        int [] ds=diagonalaSec(a);
+        //apelul metodei de afisare a diagonalei secundare
+        
+        System.out.println("Elementele de pe diagonala secundara:");
+        for(int i=0;i<ds.length;i++) {
+            System.out.print(ds[i] + " ");
+        }
+        System.out.println();
+        
+        System.out.println("Suma elementelor situate "
+                + "deasupra diagonalei secundare: " + sumaDiagSecD(a));
+                
+        System.out.println("Suma elementelor situate sub "
+                + "diagonala secundara: " + sumaDiagSecS(a));
+    }
+    
+    public static int[][] citesteMatrice() throws IOException{
+        
+        InputStreamReader isr = new InputStreamReader (System.in);
+        BufferedReader br = new BufferedReader (isr);
+        
+        System.out.print("Introduceti nr de linii/coloane (matrice patrata): ");
+        String s=br.readLine();
+        int n=Integer.parseInt(s);
+        
+        int [][] matrice=new int[n][n];
+        //declararea matricei de dimesiune n
+        
+        System.out.println("Introduceti elementele: ");
+        for(int i=0; i<n; i++)
+            for(int j=0; j<n; j++){
+                //parcurgerea matricii si introducerea elementelor
+                System.out.print("a" + (i+1) + (j+1) +" = ");
+                s=br.readLine();
+                matrice[i][j]=Integer.parseInt(s);
+                //conversia la numere intregi
+            }
+        return matrice;    
+}
+    
+    public static void printMatrice(int[][] matrice){
+        for (int i=0; i<matrice.length; i++){
+            for (int j=0; j<matrice.length; j++){
+                System.out.print(matrice[i][j] + " ");
+            }
+        System.out.println();
+        }
+    }
+    
+    public static int[] diagonalaSec(int[][] matrice){
+        //functie pt afisarea diagonalei secundare a matricei
+        int[] diags=new int [matrice.length];
+        for(int i=0; i<matrice.length; i++){
+            diags[i] = matrice[i][matrice.length-i-1];
+        }
+        return diags;
+    }
+    
+    public static int sumaDiagSecD(int[][] matrice){
+        //functie pt realizarea sumei elementelor de deasupra diagonalei secundare
+        //nu o face - nu calculeaza ultumul rand
+        int suma=0;
+        for(int i=0; i<matrice.length-i-1; i++)
+            for(int j=0; j<matrice.length-i-1; j++){
+                suma+=matrice[i][j];
+                System.out.println("a" + i + j + "= " + matrice[i][j]);
+            }
+        return suma;
+    }
+        
+    public static int sumaDiagSecS(int[][]matrice){
+     //functie pt realizarea sumei elementelor de sub diagonala secundara
+        int suma=0;
+        for(int i=1; i < matrice.length; i++)
+            for(int j=matrice.length-i; j<matrice.length; j++){
+                suma+=matrice[i][j];
+            }
+        return suma;   
+    }
+
+}
